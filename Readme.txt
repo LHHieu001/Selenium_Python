@@ -1,1 +1,1 @@
-Nothing here yet
+To create local port: "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --remote-debugging-port=8989 --user-data-dir="C:\Study\Python\KTPM\User_data"
