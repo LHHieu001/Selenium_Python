@@ -16,12 +16,19 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
-    def test_ViewPosts(self):
-        el = self.driver.find_element(By.NAME, "ViewAllPosts")
-        self.driver.execute_script("arguments[0].click()", el)
+    def test_UserCommentsBtn(self):
 
-        expected_url = "http://localhost/blog_git/personalBlog/posts.php"
+        el = self.driver.find_element(By.NAME, "UserComments")
+        el.click()
+
+        self.driver.implicitly_wait(3)
+
+        expected_url = "http://localhost/blog_git/personalBlog/user_comments.php"
         self.assertEqual(self.driver.current_url, expected_url, "Test was not successful. URL did not change as expected.")
+
+    #def test_UserCommentsBtn2_Delete(self):
+
+
 
     def Teardown(self):
         self.driver.quit()
