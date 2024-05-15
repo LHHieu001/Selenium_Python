@@ -16,14 +16,14 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
-    def test_UserFollowAction(self):
+    def test_UserCommentAction(self):
 
 
         el = self.driver.find_element(By.CLASS_NAME, "fa-comment")
         self.driver.execute_script("arguments[0].click();", el)
         self.driver.implicitly_wait(4)
 
-    def test_UserFollowAction2_addcomment(self):
+    def test_UserCommentAction_2_write(self):
         writecomment = self.driver.find_element(By.CLASS_NAME, "comment-box")
         writecomment.send_keys("Nice")
 
@@ -31,7 +31,7 @@ class MyTest(unittest.TestCase):
         addcomment.click()
         self.driver.implicitly_wait(4)
 
-    def test_UserFollowAction3_deletecomment(self):
+    def test_UserCommentAction_3_delete(self):
 
         deletecomment = self.driver.find_element(By.NAME, "delete_comment")
         self.driver.execute_script("arguments[0].click();", deletecomment)
