@@ -1,3 +1,4 @@
+import time
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -19,22 +20,24 @@ class MyTest(unittest.TestCase):
     def test_UserLogin(self):
 
         email = self.driver.find_element(By.NAME, "email")
-        email.send_keys("LeHoangHieu9903@gmail.com")
+        email.send_keys("NotExist@gmail.com")
 
         password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("12092003A@")
+        password.send_keys("NotExist")
+
+        time.sleep(1)
 
         self.driver.implicitly_wait(3)
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
-        expected_url = "http://localhost/blog_git/personalBlog/index.php"
-        self.assertEqual(self.driver.current_url, expected_url, "Login was not successful. URL did not change as expected.")
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "incorrect username or password!" in message.text
+        print("Test Successful")
 
-    def Teardown(self):
+    def tearDown(self):
         self.driver.quit()
-
 
 if __name__ == '__main__':
     unittest.main()

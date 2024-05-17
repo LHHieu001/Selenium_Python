@@ -88,7 +88,7 @@ class MyTest(unittest.TestCase):
         time.sleep(2)
 
         name = self.driver.find_element(By.NAME, "name")
-        name.send_keys("Hieu")
+        name.send_keys("Hieu1209")
 
         email = self.driver.find_element(By.NAME, "email")
         email.send_keys("LeHoangHieu0236@gmail.com")

@@ -19,16 +19,16 @@ class MyTest(unittest.TestCase):
     def test_UserReg(self):
 
         name = self.driver.find_element(By.NAME, "name")
-        name.send_keys("Hieu")
+        name.send_keys("Hieu123")
 
         email = self.driver.find_element(By.NAME, "email")
         email.send_keys("LeHoangHieu9903@gmail.com")
 
         password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("12092003")
+        password.send_keys("12092003A@")
 
         cpassword = self.driver.find_element(By.NAME, "cpass")
-        cpassword.send_keys("12092003")
+        cpassword.send_keys("12092003A@")
 
         self.driver.implicitly_wait(3)
 
