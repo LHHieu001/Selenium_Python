@@ -22,10 +22,10 @@ class MyTest(unittest.TestCase):
         curpassword.send_keys("#SN120903")
 
         newpassword = self.driver.find_element(By.NAME, "new_pass")
-        newpassword.send_keys("#Lehoanghieu")
+        newpassword.send_keys("12Lehoanghieu")
 
         cpassword = self.driver.find_element(By.NAME, "confirm_pass")
-        cpassword.send_keys("#Lehoanghieu")
+        cpassword.send_keys("12Lehoanghieu")
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()

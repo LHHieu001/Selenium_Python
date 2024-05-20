@@ -14,15 +14,19 @@ class MyTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/")
+        self.driver.get("http://localhost/blog_git/personalBlog/update.php")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
-        el.click()
+    def test_UserUpdate_Update(self):
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+        curpassword = self.driver.find_element(By.NAME, "old_pass")
+        curpassword.send_keys("#SN120903")
+
+        submit = self.driver.find_element(By.NAME, "submit")
+        submit.click()
+
+        self.driver.implicitly_wait(3)
+
+
 
     def Teardown(self):
         self.driver.quit()

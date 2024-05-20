@@ -14,15 +14,19 @@ class MyTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/")
+        self.driver.get("http://localhost/blog_git/personalBlog/user_follow.php")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
+    def test_UserFollowtn(self):
+
+        el = self.driver.find_element(By.NAME, "follow_author")
         el.click()
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+        self.driver.implicitly_wait(3)
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "removed from follows" in message.text
+        print("Test Pass")
+
 
     def Teardown(self):
         self.driver.quit()

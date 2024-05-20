@@ -36,6 +36,18 @@ class MyTest(unittest.TestCase):
         submit.click()
 
 
+        validation_message = self.driver.execute_script("return arguments[0].validationMessage;", name)
+
+        assert "Please fill out this field." in validation_message
+        print("Test Successful")
+
+        # Check if the validation message is the expected one
+        #if validation_message == "Please fill out this field.":
+        #    print("Validation message detected:", validation_message)
+        #else:
+        #    print("Validation message not detected or different message:", validation_message)
+
+
     def Teardown(self):
         self.driver.quit()
 

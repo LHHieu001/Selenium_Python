@@ -14,26 +14,26 @@ class MyTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/register.php")
+        self.driver.get("http://localhost/blog_git/personalBlog/update.php")
 
-    def test_UserReg(self):
+    def test_UserUpdate_Update(self):
 
-        name = self.driver.find_element(By.NAME, "name")
-        name.send_keys("HieuDFG")
 
-        email = self.driver.find_element(By.NAME, "email")
-        email.send_keys("LeHoangHieu0234")
+        newpassword = self.driver.find_element(By.NAME, "new_pass")
+        newpassword.send_keys("#SN15092005")
 
-        password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("12092003A@")
-
-        cpassword = self.driver.find_element(By.NAME, "cpass")
-        cpassword.send_keys("12092003A@")
-
-        self.driver.implicitly_wait(3)
+        cpassword = self.driver.find_element(By.NAME, "confirm_pass")
+        cpassword.send_keys("#SN15092005")
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
+
+        self.driver.implicitly_wait(3)
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "Please enter your current password!" in message.text
+        print("Test Successful")
+
 
     def Teardown(self):
         self.driver.quit()

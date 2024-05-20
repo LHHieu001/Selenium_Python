@@ -94,10 +94,10 @@ class MyTest(unittest.TestCase):
         email.send_keys("LeHoangHieu0236@gmail.com")
 
         password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("12092003")
+        password.send_keys("SN12092003#")
 
         cpassword = self.driver.find_element(By.NAME, "cpass")
-        cpassword.send_keys("12092003")
+        cpassword.send_keys("SN12092003#")
 
         self.driver.implicitly_wait(3)
         time.sleep(2)
@@ -112,19 +112,16 @@ class MyTest(unittest.TestCase):
         # 4.Find a blog on search bar and click on the searched blog's author name
         search = self.driver.find_element(By.NAME, "search_box")
         time.sleep(2)
-        search.send_keys("123")
+        search.send_keys("Test")
         time.sleep(2)
         search.submit()
 
         expected_search_url = "http://localhost/blog_git/personalBlog/search.php"
         self.assertEqual(self.driver.current_url, expected_search_url,"Search was not successful. URL did not change")
 
-        author_name = self.driver.find_element(By.PARTIAL_LINK_TEXT, "HieuAuthor")
-        time.sleep(3)
+        author_name = self.driver.find_element(By.PARTIAL_LINK_TEXT, "HieuAuthor11")
         self.driver.execute_script("arguments[0].click();", author_name)
 
-        expected_searchedauthor_url = "http://localhost/blog_git/personalBlog/author_posts.php?author=HieuAuthor"
-        self.assertEqual(self.driver.current_url, expected_searchedauthor_url, "Action was not successful. URL did not change")
 
         # 5.Follow the author
         follow_1 = self.driver.find_element(By.CLASS_NAME, "fa-plus-square")

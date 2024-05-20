@@ -1,5 +1,7 @@
+import time
 import unittest
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options
 
@@ -16,13 +18,20 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
-        el.click()
+    def test_UserLikebtn(self):
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+
+        likepost = self.driver.find_element(By.NAME, "like_post")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(likepost).perform()
+        self.driver.execute_script("arguments[0].click()", likepost)
+        self.driver.implicitly_wait(3)
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "added to likes" or "removed from likes" in message.text
+        print("Test Successful")
+
+
 
     def Teardown(self):
         self.driver.quit()

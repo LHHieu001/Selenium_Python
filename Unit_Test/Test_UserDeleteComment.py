@@ -1,3 +1,4 @@
+import re
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -14,15 +15,21 @@ class MyTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/")
+        self.driver.get("http://localhost/blog_git/personalBlog/user_comments.php")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
+    def test_UserCommentAction(self):
+
+        el = self.driver.find_element(By.NAME, "delete_comment")
         el.click()
+        self.driver.implicitly_wait(2)
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+        alert = self.driver.switch_to.alert
+        alert.accept()
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "comment deleted successfully!" in message.text
+        print("test pass")
+
 
     def Teardown(self):
         self.driver.quit()

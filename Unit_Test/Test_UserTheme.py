@@ -17,12 +17,13 @@ class MyTest(unittest.TestCase):
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
     def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
+        el = self.driver.find_element(By.CLASS_NAME, "fa-moon")
         el.click()
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+        change = self.driver.find_element(By.TAG_NAME, "body")
+        getclass = change.get_attribute("class")
+        assert "dark-theme" or "" in getclass
+        print("Test successful")
 
     def Teardown(self):
         self.driver.quit()

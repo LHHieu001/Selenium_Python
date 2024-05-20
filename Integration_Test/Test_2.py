@@ -39,13 +39,13 @@ class MyTest(unittest.TestCase):
         self.driver.implicitly_wait(1)
 
         expected_url_1 = "http://localhost/blog_git/personalBlog/login.php"
-        self.assertEqual(self.driver.current_url, expected_url_1, "Test was not successful. URL did not change.")
+        self.assertEqual(self.driver.current_url, expected_url_1, "Test was not successful. URL did not change to login.")
         time.sleep(1)
 
         email = self.driver.find_element(By.NAME, "email")
-        email.send_keys("LeHoangHieu9903@gmail.com")
+        email.send_keys("lehoanghieu120903@gmail.com")
         password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("123")
+        password.send_keys("#SN120903")
         self.driver.implicitly_wait(2)
         time.sleep(1)
 
@@ -68,14 +68,14 @@ class MyTest(unittest.TestCase):
         self.assertEqual(self.driver.current_url, expected_url_3, "Action was not successful. URL did not change.")
         time.sleep(2)
 
-        oldpassword = self.driver.find_element(By.NAME, "old_pass")
-        oldpassword.send_keys("123")
+        curpassword = self.driver.find_element(By.NAME, "old_pass")
+        curpassword.send_keys("#SN120903")
 
         newpassword = self.driver.find_element(By.NAME, "new_pass")
-        newpassword.send_keys("123")
+        newpassword.send_keys("#SN12092003")
 
         cpassword = self.driver.find_element(By.NAME, "confirm_pass")
-        cpassword.send_keys("123")
+        cpassword.send_keys("#SN12092003")
         time.sleep(1)
 
         submit = self.driver.find_element(By.NAME, "submit")
@@ -114,9 +114,9 @@ class MyTest(unittest.TestCase):
         time.sleep(1)
 
         email_1 = self.driver.find_element(By.NAME, "email")
-        email_1.send_keys("LeHoangHieu9903@gmail.com")
+        email_1.send_keys("lehoanghieu120903@gmail.com")
         password_1 = self.driver.find_element(By.NAME, "pass")
-        password_1.send_keys("123")
+        password_1.send_keys("#SN12092003")
         self.driver.implicitly_wait(2)
         time.sleep(1)
 

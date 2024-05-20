@@ -16,13 +16,16 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Author")
-        el.click()
+    def test_UserFollow(self):
 
-        expected_url = "http://localhost/blog_git/personalBlog/admin/admin_login.php"
-        self.assertEqual(self.driver.current_url, expected_url,
-                         "Test was not successful. URL did not change as expected.")
+        el = self.driver.find_element(By.CLASS_NAME, "fa-plus-square")
+        self.driver.execute_script("arguments[0].click()", el)
+        self.driver.implicitly_wait(3)
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "please login first!" in message.text
+        print("Test Passed")
+
 
     def Teardown(self):
         self.driver.quit()

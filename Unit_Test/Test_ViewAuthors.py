@@ -20,6 +20,10 @@ class MyTest(unittest.TestCase):
         el = self.driver.find_element(By.NAME, "ViewAllAuthors")
         el.click()
 
+        expected_url = "http://localhost/blog_git/personalBlog/authors.php"
+        self.assertEqual(self.driver.current_url, expected_url,
+                         "Test was not successful. URL did not change as expected.")
+
     def Teardown(self):
         self.driver.quit()
 

@@ -18,8 +18,12 @@ class MyTest(unittest.TestCase):
     
     def test_SearchBar(self):
         el = self.driver.find_element(By.NAME, "search_box")
-        el.send_keys("Hello")
+        el.send_keys("Test")
         el.submit()
+
+        title = self.driver.find_element(By.CLASS_NAME, "post-title")
+        assert "Test" in title.text
+        print("Test Successful")
 
     def tearDown(self):
         self.driver.quit()

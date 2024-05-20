@@ -42,9 +42,9 @@ class MyTest(unittest.TestCase):
         time.sleep(2)
 
         email = self.driver.find_element(By.NAME, "email")
-        email.send_keys("LeHoangHiu@gmail.com")
+        email.send_keys("lehoanghieu120903@gmail.com")
         password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("SinhNgay12092003")
+        password.send_keys("#SN120903")
         self.driver.implicitly_wait(2)
         time.sleep(2)
 
@@ -72,6 +72,10 @@ class MyTest(unittest.TestCase):
         self.driver.execute_script("arguments[0].click()", likepost)
         time.sleep(2)
 
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "added to likes" in message.text
+        print("Like test: pass")
+
         #numoflike = likepost.find_element(By.XPATH, '')
         #assert "1" in numoflike.text
         #print("Pass")
@@ -95,13 +99,17 @@ class MyTest(unittest.TestCase):
         writecomment = self.driver.find_element(By.CLASS_NAME, "comment-box")
         self.driver.execute_script("arguments[0].scrollIntoView();", writecomment)
         time.sleep(1)
-        writecomment.send_keys("Nice")
+        writecomment.send_keys("Rad")
         time.sleep(2)
 
         addcomment = self.driver.find_element(By.NAME, "add_comment")
         self.driver.execute_script("arguments[0].click()", addcomment)
         self.driver.implicitly_wait(4)
         time.sleep(1)
+
+        message_comment = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "new comment added!" in message_comment.text
+        print("comment added!")
 
         #5.Log out
         userbtn = self.driver.find_element(By.ID, "user-btn")

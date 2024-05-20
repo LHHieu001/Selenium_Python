@@ -19,7 +19,7 @@ class MyTest(unittest.TestCase):
 
     def test_SearchBar(self):
         el = self.driver.find_element(By.NAME, "search_box")
-        el.send_keys("a")
+        el.send_keys("Beef")
         el.submit()
         time.sleep(2)
 

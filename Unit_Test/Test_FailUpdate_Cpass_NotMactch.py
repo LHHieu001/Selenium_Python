@@ -22,10 +22,10 @@ class MyTest(unittest.TestCase):
         curpassword.send_keys("#SN120903")
 
         newpassword = self.driver.find_element(By.NAME, "new_pass")
-        newpassword.send_keys("#Lehoanghieu")
+        newpassword.send_keys("#SN15092005")
 
         cpassword = self.driver.find_element(By.NAME, "confirm_pass")
-        cpassword.send_keys("#Lehoanghieu")
+        cpassword.send_keys("#SN15092330")
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
@@ -33,7 +33,7 @@ class MyTest(unittest.TestCase):
         self.driver.implicitly_wait(3)
 
         message = self.driver.find_element(By.CLASS_NAME, "message")
-        assert "Password must contain at least one uppercase letter, one number, and one special character!" in message.text
+        assert "Confirm Password is not matched with new password!" in message.text
         print("Test Successful")
 
 
