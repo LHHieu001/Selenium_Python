@@ -1,4 +1,5 @@
 import unittest
+import mysql.connector
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options
@@ -16,13 +17,13 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/register.php")
 
-    def test_UserReg(self):
+    def test_CreateUser(self):
 
         name = self.driver.find_element(By.NAME, "name")
-        name.send_keys("")
+        name.send_keys("HoangHieuTheHuman")
 
         email = self.driver.find_element(By.NAME, "email")
-        email.send_keys("LeHoangHieu0234@gmail.com")
+        email.send_keys("HieuHuman@gmail.com")
 
         password = self.driver.find_element(By.NAME, "pass")
         password.send_keys("12092003A@")
@@ -35,19 +36,32 @@ class MyTest(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
+        expected_url = "http://localhost/blog_git/personalBlog/index.php"
+        self.assertEqual(self.driver.current_url, expected_url,
+                         "Registration was not successful. URL did not change as expected.")
 
-        validation_message = self.driver.execute_script("return arguments[0].validationMessage;", name)
-        assert "Please fill out this field." in validation_message
-        print("Test Successful")
+    def test_database(self):
 
-        # Check if the validation message is the expected one
-        #if validation_message == "Please fill out this field.":
-        #    print("Validation message detected:", validation_message)
-        #else:
-        #    print("Validation message not detected or different message:", validation_message)
+        self.db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="blog_db"
+        )
 
+        self.cursor = self.db.cursor()
+
+        self.cursor.execute("SELECT * FROM users WHERE name ='HoangHieuTheHuman'")
+        result = self.cursor.fetchone()
+
+        self.assertIsNotNone(result, "Login failed or database entry does not exist.")
+
+        expected_username = "HoangHieuTheHuman"
+        self.assertEqual(result[1], expected_username, f"Expected username {expected_username} but got {result[1]}")
 
     def Teardown(self):
+        self.db.close()
+        self.cursor.close()
         self.driver.quit()
 
 
