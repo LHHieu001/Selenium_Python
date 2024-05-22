@@ -92,7 +92,7 @@ class MyTest(unittest.TestCase):
         expected_url_pattern = r"http://localhost/blog_git/personalBlog/view_post.php\?post_id=\d+"
         current_url = self.driver.current_url
         self.assertTrue(re.search(expected_url_pattern, current_url),
-                        "Login was not successful. URL did not match the expected pattern.")
+                        "Test was not successful. URL did not match the expected pattern.")
         self.driver.implicitly_wait(2)
 
 

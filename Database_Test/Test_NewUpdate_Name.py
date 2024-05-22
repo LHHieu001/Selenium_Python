@@ -17,7 +17,7 @@ class MyTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/user_comments.php")
+        self.driver.get("http://localhost/blog_git/personalBlog/update.php")
 
     def test_database(self):
 
@@ -36,26 +36,25 @@ class MyTest(unittest.TestCase):
         value = self.cursor.fetchone()
         user_id = value[0]
 
-        query = "SELECT comment FROM comments WHERE  post_id = %s AND user_id = %s"
-        self.cursor.execute(query, ('2', user_id))
-        before_comment = self.cursor.fetchone()[0]
-        print(before_comment)
+        query = "SELECT name FROM users WHERE id = %s"
+        self.cursor.execute(query, (user_id,))
+        before_name = self.cursor.fetchone()[0]
+        print(before_name)
 
         self.db.close()
         self.cursor.close()
 
-        el = self.driver.find_element(By.NAME, "open_edit_box")
-        el.click()
-        self.driver.implicitly_wait(2)
+        name = self.driver.find_element(By.NAME, "name")
+        name.clear()
+        name.send_keys("Le Hoang Hieu")
 
-        editcomment = self.driver.find_element(By.NAME, "comment_edit_box")
-        editcomment.clear()
-        editcomment.send_keys("Very Nice")
+        curpassword = self.driver.find_element(By.NAME, "old_pass")
+        curpassword.send_keys("12092003A@")
 
-        confirmedit = self.driver.find_element(By.NAME, "edit_comment")
-        confirmedit.click()
-        self.driver.implicitly_wait(5)
-        time.sleep(2)
+        submit = self.driver.find_element(By.NAME, "submit")
+        submit.click()
+
+        self.driver.implicitly_wait(3)
 
         self.db = mysql.connector.connect(
             host="localhost",
@@ -66,11 +65,11 @@ class MyTest(unittest.TestCase):
 
         self.cursor = self.db.cursor()
 
-        self.cursor.execute(query, ('2', user_id))
-        after_comment = self.cursor.fetchone()[0]
-        print(after_comment)
+        self.cursor.execute(query, (user_id,))
+        after_name = self.cursor.fetchone()[0]
+        print(after_name)
 
-        self.assertNotEqual(before_comment, after_comment, "Database didn't update")
+        self.assertNotEqual(before_name, after_name, "Database didn't update")
 
         self.db.close()
         self.cursor.close()
