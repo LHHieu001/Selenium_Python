@@ -46,7 +46,11 @@ class MyTest(unittest.TestCase):
 
         name = self.driver.find_element(By.NAME, "name")
         name.clear()
-        name.send_keys("Le Hoang Hieu")
+        name.send_keys("Le Hoang Hieu 1")
+
+        email = self.driver.find_element(By.NAME, "email")
+        email.clear()
+        email.send_keys("HieuTheHuman1@gmail.com")
 
         curpassword = self.driver.find_element(By.NAME, "old_pass")
         curpassword.send_keys("12092003B@")

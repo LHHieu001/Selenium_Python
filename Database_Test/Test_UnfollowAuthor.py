@@ -13,24 +13,17 @@ c_options.add_experimental_option("debuggerAddress", "localhost:8989")
 
 class MyTest(unittest.TestCase):
 
-    #Log in first
+    #Log in First
     def __init__(self, *args, **kwargs):
         super(MyTest, self).__init__(*args, **kwargs)
         self.driver = webdriver.Edge(options=c_options)
-        self.driver.get("http://localhost/blog_git/personalBlog/admin/register_admin_2.php")
+        self.driver.get("http://localhost/blog_git/personalBlog/user_follow.php")
 
     def test_database(self):
 
-        username = self.driver.find_element(By.NAME, "name")
-        username.send_keys("Jane")
-
-        password = self.driver.find_element(By.NAME, "pass")
-        password.send_keys("Strong123")
-
-        cpassword = self.driver.find_element(By.NAME, "cpass")
-        cpassword.send_keys("Strong123")
-
-        self.driver.find_element(By.NAME, "submit").click()
+        el = self.driver.find_element(By.NAME, "follow_author")
+        self.driver.execute_script("arguments[0].click()", el)
+        self.driver.implicitly_wait(3)
 
         self.db = mysql.connector.connect(
             host="localhost",
@@ -41,12 +34,22 @@ class MyTest(unittest.TestCase):
 
         self.cursor = self.db.cursor()
 
-        name = 'JaneDoe'
-        query = "SELECT * FROM admin WHERE name = %s"
-        self.cursor.execute(query, (name,))
+        email = 'HieuHuman@gmail.com'
+
+        query = "SELECT id FROM users WHERE email = %s"
+        self.cursor.execute(query, (email,))
         value = self.cursor.fetchone()
 
-        self.assertIsNone(value, "Test fail new author was created")
+        if value:
+            user_id = value[0]
+
+            query_1 = "SELECT * FROM follows WHERE admin_id = %s AND user_id = %s"
+            self.cursor.execute(query_1, ('3', user_id))
+            result = self.cursor.fetchone()
+
+            self.assertIsNone(result, "Test Failed: Follow found for the given post_id and user_id.")
+        else:
+            self.fail("Test Failed: User with the given email not found.")
 
         self.db.close()
         self.cursor.close()
