@@ -29,6 +29,9 @@ class MyTest(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
+        message = self.driver.find_element(By.CLASS_NAME, 'message')
+        assert "incorrect username or password" in message.text
+        print("Test Passed")
 
 
     def Teardown(self):

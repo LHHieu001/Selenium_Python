@@ -20,6 +20,9 @@ class MyTest(unittest.TestCase):
         el = self.driver.find_element(By.PARTIAL_LINK_TEXT, "User")
         el.click()
 
+        expected_url = "http://localhost/blog_git/personalBlog/login.php"
+        self.assertEqual(self.driver.current_url, expected_url, "Test Failed")
+
     def tearDown(self):
         self.driver.quit()
 

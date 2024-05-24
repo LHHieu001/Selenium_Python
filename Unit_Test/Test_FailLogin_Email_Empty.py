@@ -30,6 +30,9 @@ class MyTest(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
+        validation_message = self.driver.execute_script("return arguments[0].validationMessage;", email)
+        self.assertIsNotNone(validation_message, "Test Fail, no validation")
+
 
     def tearDown(self):
         self.driver.quit()

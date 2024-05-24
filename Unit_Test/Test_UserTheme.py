@@ -16,14 +16,18 @@ class MyTest(unittest.TestCase):
         self.driver = webdriver.Edge(options=c_options)
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
-    def test_Authorbtn(self):
-        el = self.driver.find_element(By.CLASS_NAME, "fa-moon")
-        el.click()
+    def test_Themebtn(self):
 
-        change = self.driver.find_element(By.TAG_NAME, "body")
-        getclass = change.get_attribute("class")
-        assert "dark-theme" or "" in getclass
-        print("Test successful")
+        footer = self.driver.find_element(By.CLASS_NAME, 'footer')
+        before_color = footer.value_of_css_property('background-color')
+
+        el = self.driver.find_element(By.ID, "theme-button")
+        el.click()
+        self.driver.implicitly_wait(2)
+
+        after_color = footer.value_of_css_property('background-color')
+
+        self.assertNotEqual(before_color, after_color, "Theme didn't change")
 
     def Teardown(self):
         self.driver.quit()

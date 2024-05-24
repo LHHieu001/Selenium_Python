@@ -35,6 +35,9 @@ class MyTest(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
+        validation_message = self.driver.execute_script("return arguments[0].validationMessage;", cpassword)
+        assert "Please fill out this field." in validation_message
+        print("Test Successful")
 
     def Teardown(self):
         self.driver.quit()

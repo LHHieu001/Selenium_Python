@@ -19,6 +19,10 @@ class MyTest(unittest.TestCase):
     def test_Menubtn(self):
         el = self.driver.find_element(By.ID, "menu-btn")
         el.click()
+        self.driver.implicitly_wait(2)
+
+        active = self.driver.find_element(By.CLASS_NAME, "active")
+        self.assertIsNotNone(active, "No active element found")
 
     def Teardown(self):
         self.driver.quit()

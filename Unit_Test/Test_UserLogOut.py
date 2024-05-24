@@ -27,6 +27,16 @@ class MyTest(unittest.TestCase):
 
         self.driver.implicitly_wait(3)
 
+        expected_url = 'http://localhost/blog_git/personalBlog/index.php'
+        self.assertEqual(self.driver.current_url, expected_url,"Test Failed")
+
+        try:
+            check = self.driver.find_element(By.NAME, 'UpdateProfile')
+            self.assertIsNotNone(check, "User is logged out")
+        except:
+            print("Test success")
+
+
         #try:
         #    check = WebDriverWait(self.driver, 10).until(
         #        EC.presence_of_element_located((By.CLASS_NAME, "option-btn"))

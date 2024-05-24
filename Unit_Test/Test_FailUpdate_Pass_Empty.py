@@ -19,7 +19,9 @@ class MyTest(unittest.TestCase):
     def test_UserUpdate_Update(self):
 
         curpassword = self.driver.find_element(By.NAME, "old_pass")
-        curpassword.send_keys("#SN120903")
+        curpassword.send_keys("#ID12345678")
+
+        password = self.driver.find_element(By.NAME, "new_pass")
 
         cpassword = self.driver.find_element(By.NAME, "confirm_pass")
         cpassword.send_keys("#SN15092005")
@@ -29,6 +31,9 @@ class MyTest(unittest.TestCase):
 
         self.driver.implicitly_wait(3)
 
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "error" in message.text
+        print("Test Passed")
 
 
     def Teardown(self):

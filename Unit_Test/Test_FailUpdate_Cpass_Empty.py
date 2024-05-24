@@ -19,15 +19,21 @@ class MyTest(unittest.TestCase):
     def test_UserUpdate_Update(self):
 
         curpassword = self.driver.find_element(By.NAME, "old_pass")
-        curpassword.send_keys("#SN120903")
+        curpassword.send_keys("#ID12345678")
 
         newpassword = self.driver.find_element(By.NAME, "new_pass")
         newpassword.send_keys("#SN15092005")
+
+        cpassword = self.driver.find_element(By.NAME, "confirm_pass")
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
         self.driver.implicitly_wait(3)
+
+        message = self.driver.find_element(By.CLASS_NAME, "message")
+        assert "not matched" in message.text
+        print("Test Successful")
 
 
 

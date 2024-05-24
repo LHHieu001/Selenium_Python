@@ -23,13 +23,15 @@ class MyTest(unittest.TestCase):
         email.send_keys("lehoanghieu1.com")
 
         curpassword = self.driver.find_element(By.NAME, "old_pass")
-        curpassword.send_keys("#SN120903")
-
+        curpassword.send_keys("#ID12345678")
 
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
         self.driver.implicitly_wait(3)
+
+        validation_message = self.driver.execute_script("return arguments[0].validationMessage;", email)
+        self.assertIsNotNone(validation_message, "No validation message")
 
 
 

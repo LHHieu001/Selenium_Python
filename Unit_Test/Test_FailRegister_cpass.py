@@ -35,6 +35,10 @@ class MyTest(unittest.TestCase):
         submit = self.driver.find_element(By.NAME, "submit")
         submit.click()
 
+        message = self.driver.find_element(By.CLASS_NAME, 'message')
+        assert "not matched" in message.text
+        print("Test Successful")
+
 
     def Teardown(self):
         self.driver.quit()

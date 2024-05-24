@@ -17,8 +17,17 @@ class MyTest(unittest.TestCase):
         self.driver.get("http://localhost/blog_git/personalBlog/")
 
     def test_Themebtn(self):
+
+        footer = self.driver.find_element(By.CLASS_NAME, 'footer')
+        before_color = footer.value_of_css_property('background-color')
+
         el = self.driver.find_element(By.ID, "theme-button")
         el.click()
+        self.driver.implicitly_wait(2)
+
+        after_color = footer.value_of_css_property('background-color')
+
+        self.assertNotEqual(before_color, after_color, "Theme didn't change")
 
     def Teardown(self):
         self.driver.quit()
